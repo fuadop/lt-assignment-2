@@ -95,6 +95,11 @@ export default function Dashboard() {
           Export as CSV
         </a>
       </div>
+
+      { fetching && <div className="mb-2">
+          <Spinner className="inline-block mr-2" /> Loading...
+      </div>}
+
       <table class="table-auto border border-black w-full mb-5">
         <thead>
           <tr>
