@@ -1,0 +1,61 @@
+service: la-assignment-2
+frameworkVersion: '3'
+
+plugins:
+  - serverless-plugin-common-excludes
+  - serverless-plugin-include-dependencies
+
+useDotenv: true
+
+package:
+  patterns:
+    - "!serverless/**"
+    - "!src/**"
+    - "!assets/**"
+  individually: true
+
+provider:
+  name: aws
+  region: us-west-1 # N. California
+  runtime: nodejs16.x
+  deploymentMethod: direct
+  iamRoleStatements:
+    - Effect: Allow
+      Action: 
+        - 'dynamodb:*'
+        - 's3:*'
+      Resource: '*'
+  httpApi:
+    cors: true
+
+functions:
+  adminSetTime:
+    handler: src/adminSetTime.handler
+    events:
+      - httpApi:
+          path: /adminSetTime
+          method: post
+  adminGetSubmissions:
+    handler: src/adminGetSubmissions.handler
+    package:
+      include:
+        - "assets/*.csv"
+    events:
+      - httpApi:
+          path: /adminGetSubmissions
+          method: get
+  studentSubmit:
+    handler: src/studentSubmit.handler
+    package:
+      include:
+        - "assets/*.csv"
+    events:
+      - httpApi:
+          path: /studentSubmit
+          method: post
+  studentGetTime:
+    handler: src/studentGetTime.handler
+    events:
+      - httpApi:
+          path: /studentGetTime
+          method: get
