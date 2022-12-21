@@ -90,7 +90,7 @@ export default function Dashboard() {
     <div className="py-2 px-4">
       <div className="flex items-center justify-between mb-3">
         <p className="text-lg underline font-bold">Submissions</p>
-        <a href={downloadURL} target="_blank" rel="noopener noreferrer" className="block py-2 px-4 rounded bg-black text-white text-sm">
+        <a href={downloadURL} download rel="noopener noreferrer" className="block py-2 px-4 rounded bg-black text-white text-sm">
           <Image src="/download.svg" alt="download" width={20} height={20} className="inline-block mr-2" />
           Export as CSV
         </a>
